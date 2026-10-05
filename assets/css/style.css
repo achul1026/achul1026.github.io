@@ -92,7 +92,7 @@ a:hover { color: var(--accent); }
 .empty-title { color: var(--text); font-weight: 700; font-size: 18px; margin-bottom: 6px !important; }
 
 @media (max-width: 820px) {
-  .home { grid-template-columns: 1fr; gap: 32px; padding-top: 40px; }
+  .home { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-top: 40px; }
   .index { position: static; }
   .index-text { margin-bottom: 20px; }
   .topics { display: flex; gap: 8px; overflow-x: auto; border: 0; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }

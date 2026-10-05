@@ -1,0 +1,16 @@
+- name: 데이터베이스
+  color: "#0f8b7d"
+- name: 백엔드
+  color: "#3347e0"
+- name: 인프라·배포
+  color: "#b7791f"
+- name: 보안
+  color: "#c2412d"
+- name: 프론트엔드
+  color: "#c0306f"
+- name: AI·도구
+  color: "#7b4be0"
+- name: 아키텍처
+  color: "#4d7c0f"
+- name: 커리어
+  color: "#6b7280"

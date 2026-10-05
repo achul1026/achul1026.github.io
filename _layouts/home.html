@@ -1,28 +1,60 @@
 ---
 layout: default
 ---
-<section class="intro">
-  <p class="eyebrow">BACKEND NOTES</p>
-  <h1 class="intro-title">직접 재 보고,<br>읽은 것은 출처와 함께 정리합니다.</h1>
-  <p class="intro-text">Java·Spring Boot 백엔드 개발자 김경철의 기록입니다. 대용량 조회, 인증·권한, 배치, 배포를 다룹니다. 수치는 직접 측정한 것만 측정이라고 적습니다.</p>
-</section>
+<div class="home">
+  <aside class="index" aria-label="분야">
+    <h1 class="index-title">기술 노트</h1>
+    <p class="index-text">직접 해 본 것과 읽고 정리한 것을 분야 가리지 않고 쌓아 둡니다.</p>
+    <ul class="topics" id="topics">
+      <li><button type="button" class="topic" data-topic="" aria-pressed="true"><span class="topic-name">전체</span><span class="topic-count">{{ site.posts.size }}</span></button></li>
+      {% for t in site.data.topics %}
+      {% assign n = site.posts | where: "topic", t.name | size %}
+      <li><button type="button" class="topic" data-topic="{{ t.name }}" aria-pressed="false"{% if n == 0 %} disabled{% endif %}><span class="dot" style="background: {{ t.color }}"></span><span class="topic-name">{{ t.name }}</span><span class="topic-count">{{ n }}</span></button></li>
+      {% endfor %}
+    </ul>
+  </aside>
 
-<section class="post-list" aria-label="글 목록">
-  <h2 class="list-title">글 <span class="count">{{ site.posts.size }}</span></h2>
-  {% if site.posts.size == 0 %}
-    <p class="empty">첫 글을 준비하고 있습니다. 매주 월요일에 한 편씩 올라옵니다.</p>
-  {% endif %}
-  <ol class="rows">
-  {% for post in site.posts %}
-    {% assign kind = post.categories | first %}
-    <li class="row">
-      <time class="row-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
-      <div class="row-main">
-        <a class="row-title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-        <p class="row-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 110 }}</p>
-        <p class="row-meta"><span class="tag">{{ kind }}</span>{% for t in post.tags limit: 3 %}<span class="chip">{{ t }}</span>{% endfor %}</p>
-      </div>
-    </li>
-  {% endfor %}
-  </ol>
-</section>
+  <section class="feed" aria-label="글 목록">
+    {% if site.posts.size == 0 %}
+    <div class="empty">
+      <p class="empty-title">첫 글은 10월 12일에 올라옵니다</p>
+      <p>이후 매주 월요일에 한 편씩 올라옵니다. 새 글은 <a href="{{ '/feed.xml' | relative_url }}">RSS</a>로 받아 볼 수 있습니다.</p>
+    </div>
+    {% endif %}
+    <ol class="entries">
+    {% for post in site.posts %}
+      {% assign kind = post.categories | first %}
+      {% assign tp = site.data.topics | where: "name", post.topic | first %}
+      <li class="entry" data-topic="{{ post.topic }}">
+        <a class="entry-title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        <p class="entry-summary">{{ post.summary | default: post.excerpt | strip_html | truncate: 120 }}</p>
+        <p class="entry-meta">
+          <span class="kind">{{ kind }}</span>
+          {% if tp %}<span class="entry-topic"><span class="dot" style="background: {{ tp.color }}"></span>{{ post.topic }}</span>{% endif %}
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y년 %-m월 %-d일" }}</time>
+        </p>
+      </li>
+    {% endfor %}
+    </ol>
+  </section>
+</div>
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.topic');
+  var entries = document.querySelectorAll('.entry');
+  function show(topic) {
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.topic === topic)); });
+    entries.forEach(function (e) { e.hidden = topic !== '' && e.dataset.topic !== topic; });
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      show(b.dataset.topic);
+      history.replaceState(null, '', b.dataset.topic ? '#' + encodeURIComponent(b.dataset.topic) : location.pathname);
+    });
+  });
+  if (location.hash) {
+    var t = decodeURIComponent(location.hash.slice(1));
+    if (document.querySelector('.topic[data-topic="' + t + '"]:not([disabled])')) show(t);
+  }
+})();
+</script>

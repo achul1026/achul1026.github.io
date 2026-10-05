@@ -2,11 +2,17 @@
 layout: default
 ---
 {% assign kind = page.categories | first %}
+{% assign tp = site.data.topics | where: "name", page.topic | first %}
 {% assign chars = content | strip_html | strip_newlines | size %}
 {% assign mins = chars | divided_by: 650 | plus: 1 %}
 <article class="post">
   <header class="post-head">
-    <p class="eyebrow"><span class="tag">{{ kind }}</span> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time> · 읽는 시간 약 {{ mins }}분</p>
+    <p class="post-meta">
+      <span class="kind">{{ kind }}</span>
+      {% if tp %}<span class="entry-topic"><span class="dot" style="background: {{ tp.color }}"></span>{{ page.topic }}</span>{% endif %}
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %-m월 %-d일" }}</time>
+      <span>읽는 시간 약 {{ mins }}분</span>
+    </p>
     <h1 class="post-title">{{ page.title | escape }}</h1>
     {% if page.summary %}<p class="post-summary">{{ page.summary }}</p>{% endif %}
   </header>

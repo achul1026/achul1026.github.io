@@ -3,6 +3,7 @@ layout: post
 title: "[정리] PostgreSQL 공식 문서가 파티셔닝에 대해 경고하는 것들"
 summary: "PostgreSQL 18 문서의 테이블 파티셔닝 장을 읽고 이득이 되는 조건, 파티션 키와 개수, 프루닝, 제약을 정리했다. 직접 겪은 일이 아니라 문서를 읽고 정리한 글이다."
 categories: [정리]
+topic: 데이터베이스
 tags: [PostgreSQL, 파티셔닝, 공식문서]
 date: 2026-10-19 09:00:00 +0900
 ---

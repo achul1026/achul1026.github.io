@@ -1,0 +1,28 @@
+---
+layout: default
+---
+<section class="intro">
+  <p class="eyebrow">BACKEND NOTES</p>
+  <h1 class="intro-title">직접 재 보고,<br>읽은 것은 출처와 함께 정리합니다.</h1>
+  <p class="intro-text">Java·Spring Boot 백엔드 개발자 김경철의 기록입니다. 대용량 조회, 인증·권한, 배치, 배포를 다룹니다. 수치는 직접 측정한 것만 측정이라고 적습니다.</p>
+</section>
+
+<section class="post-list" aria-label="글 목록">
+  <h2 class="list-title">글 <span class="count">{{ site.posts.size }}</span></h2>
+  {% if site.posts.size == 0 %}
+    <p class="empty">첫 글을 준비하고 있습니다. 매주 월요일에 한 편씩 올라옵니다.</p>
+  {% endif %}
+  <ol class="rows">
+  {% for post in site.posts %}
+    {% assign kind = post.categories | first %}
+    <li class="row">
+      <time class="row-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+      <div class="row-main">
+        <a class="row-title" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        <p class="row-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 110 }}</p>
+        <p class="row-meta"><span class="tag">{{ kind }}</span>{% for t in post.tags limit: 3 %}<span class="chip">{{ t }}</span>{% endfor %}</p>
+      </div>
+    </li>
+  {% endfor %}
+  </ol>
+</section>

@@ -1,0 +1,24 @@
+name: preview
+# PR 에서 미래 날짜 글까지 포함해 빌드해 보고, 결과물을 artifact 로만 올린다(배포하지 않는다).
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+          future: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preview-site
+          path: _site
+          retention-days: 7

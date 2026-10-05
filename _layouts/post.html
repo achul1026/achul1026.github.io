@@ -1,0 +1,30 @@
+---
+layout: default
+---
+{% assign kind = page.categories | first %}
+{% assign chars = content | strip_html | strip_newlines | size %}
+{% assign mins = chars | divided_by: 650 | plus: 1 %}
+<article class="post">
+  <header class="post-head">
+    <p class="eyebrow"><span class="tag">{{ kind }}</span> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time> · 읽는 시간 약 {{ mins }}분</p>
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+    {% if page.summary %}<p class="post-summary">{{ page.summary }}</p>{% endif %}
+  </header>
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  {% if page.repo %}
+  <aside class="repo-card">
+    <p class="repo-label">관련 저장소</p>
+    <a href="{{ page.repo }}" rel="noopener">{{ page.repo | remove: 'https://' }}</a>
+    {% if page.repo_note %}<p class="repo-note">{{ page.repo_note }}</p>{% endif %}
+  </aside>
+  {% endif %}
+
+  <nav class="post-nav" aria-label="이전·다음 글">
+    {% if page.previous %}<a class="prev" href="{{ page.previous.url | relative_url }}"><span>이전 글</span>{{ page.previous.title | escape }}</a>{% endif %}
+    {% if page.next %}<a class="next" href="{{ page.next.url | relative_url }}"><span>다음 글</span>{{ page.next.title | escape }}</a>{% endif %}
+  </nav>
+</article>

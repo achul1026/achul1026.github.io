@@ -1,18 +1,20 @@
 title: 김경철의 백엔드 노트
-description: Java·Spring Boot 백엔드 개발자가 직접 측정하고 정리한 기술 글
+description: 백엔드 개발자 김경철이 직접 재 보고 정리한 기술 글
 url: "https://achul1026.github.io"
 baseurl: ""
 lang: ko
 timezone: Asia/Seoul
-theme: minima
 github_username: achul1026
+author: 김경철
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
-header_pages:
-  - about.md
-show_excerpts: true
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 future: false          # 날짜가 아직 오지 않은 글은 숨김. 하루 한 번 도는 빌드가 날짜가 된 글을 게시한다
+permalink: /posts/:title/
 exclude:
   - README.md
   - docs

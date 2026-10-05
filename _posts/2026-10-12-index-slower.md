@@ -3,6 +3,7 @@ layout: post
 title: "인덱스를 걸었더니 오히려 2배 느려졌다"
 summary: "월 파티션, 인덱스, 집계 테이블을 같은 3,000만 건에 적용해 보고, 각각이 어떤 질의에서 도움이 되고 어떤 질의에서 발목을 잡는지 쟀다."
 categories: [직접 해본 것]
+topic: 데이터베이스
 tags: [PostgreSQL, 파티셔닝, 인덱스, Redis]
 repo: https://github.com/achul1026/traffic-stats-lab
 repo_note: 합성 데이터 생성 SQL, 측정 스크립트, 실행 계획 원문, 결과 표가 들어 있다.
